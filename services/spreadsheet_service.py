@@ -6,10 +6,10 @@ logger = logging.getLogger(__name__)
 
 
 class SpreadsheetService:
-    def __init__(self):
+    def __init__(self, columns):
         self.wb = Workbook()
         self.ws = self.wb.active
-        self.ws.append(["Coluna1", "Coluna2", "Coluna3", "Origem"])
+        self.ws.append(columns + ["Origem"])
         self.ws.auto_filter.ref = self.ws.dimensions
 
     def append_row(self, row):

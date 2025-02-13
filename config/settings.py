@@ -1,4 +1,3 @@
-# config/settings.py
 import os
 
 from dotenv import load_dotenv
@@ -14,3 +13,4 @@ class Settings:
         self.sharepoint_host = os.getenv("sharepoint_host")
         self.sharepoint_site = os.getenv("sharepoint_site")
         self.sharepoint_path = os.getenv("sharepoint_path")
+        self.columns = os.getenv("columns").split(",")

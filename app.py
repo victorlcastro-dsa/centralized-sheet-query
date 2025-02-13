@@ -19,7 +19,7 @@ class App:
         self.sharepoint_service = SharePointFolderService(
             self.auth_service.get_access_token(), self.settings
         )
-        self.spreadsheet_service = SpreadsheetService()
+        self.spreadsheet_service = SpreadsheetService(self.settings.columns)
 
     async def run(self):
         async with ClientSession() as session:
