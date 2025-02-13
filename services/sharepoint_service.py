@@ -1,9 +1,10 @@
-import logging
 from urllib.parse import quote
+
+from config.logger_config import LoggerConfig
 
 from .base_service import BaseService
 
-logger = logging.getLogger(__name__)
+logger = LoggerConfig.get_logger(__name__)
 
 
 class SharePointFolderService(BaseService):

@@ -1,15 +1,15 @@
 import asyncio
-import logging
 
 from aiohttp import ClientSession
 
 from auth.authentication import AuthenticationService
+from config.logger_config import LoggerConfig
 from config.settings import Settings
 from services.file_processor import process_file
 from services.sharepoint_service import SharePointFolderService
 from services.spreadsheet_service import SpreadsheetService
 
-logger = logging.getLogger(__name__)
+logger = LoggerConfig.get_logger(__name__)
 
 
 class App:

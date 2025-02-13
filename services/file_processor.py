@@ -1,9 +1,10 @@
-import logging
 from io import BytesIO
 
 import pandas as pd
 
-logger = logging.getLogger(__name__)
+from config.logger_config import LoggerConfig
+
+logger = LoggerConfig.get_logger(__name__)
 
 
 async def process_file(session, file, ws, access_token, drive_id):

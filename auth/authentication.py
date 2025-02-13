@@ -1,9 +1,10 @@
-import logging
 import time
 
 import msal
 
-logger = logging.getLogger(__name__)
+from config.logger_config import LoggerConfig
+
+logger = LoggerConfig.get_logger(__name__)
 
 
 class AuthenticationService:

@@ -1,8 +1,8 @@
-import logging
-
 from openpyxl import Workbook
 
-logger = logging.getLogger(__name__)
+from config.logger_config import LoggerConfig
+
+logger = LoggerConfig.get_logger(__name__)
 
 
 class SpreadsheetService:
