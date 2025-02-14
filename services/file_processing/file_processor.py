@@ -1,4 +1,6 @@
-from services.file_processing.file_processing_strategy import FileProcessingStrategy
+from services.file_processing.strategies.file_processing_strategy import (
+    FileProcessingStrategy,
+)
 
 
 class FileProcessor:

@@ -1,10 +1,12 @@
 from auth.authentication import AuthenticationService
 from config.logger_config import LoggerConfig
 from config.settings import Settings
-from services.file_processing.excel_processing_strategy import ExcelProcessingStrategy
 from services.file_processing.file_processor import FileProcessor
-from services.sharepoint_service import SharePointFolderService
-from services.spreadsheet_service import SpreadsheetService
+from services.file_processing.strategies.excel_processing_strategy import (
+    ExcelProcessingStrategy,
+)
+from services.sharepoint.sharepoint_service import SharePointFolderService
+from services.spreadsheet.spreadsheet_service import SpreadsheetService
 
 
 class ServiceFactory:

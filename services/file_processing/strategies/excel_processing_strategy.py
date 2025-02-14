@@ -3,7 +3,9 @@ from io import BytesIO
 import pandas as pd
 
 from config.logger_config import LoggerConfig
-from services.file_processing.file_processing_strategy import FileProcessingStrategy
+from services.file_processing.strategies.file_processing_strategy import (
+    FileProcessingStrategy,
+)
 
 logger = LoggerConfig.get_logger(__name__)
 

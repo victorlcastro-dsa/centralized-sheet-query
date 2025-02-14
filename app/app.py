@@ -4,7 +4,7 @@ from aiohttp import ClientSession
 
 from config.logger_config import LoggerConfig
 from config.settings import Settings
-from services.service_factory import ServiceFactory
+from services.factory.service_factory import ServiceFactory
 
 logger = LoggerConfig.get_logger(__name__)
 

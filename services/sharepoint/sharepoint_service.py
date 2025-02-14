@@ -3,7 +3,7 @@ from urllib.parse import quote
 from config.logger_config import LoggerConfig
 from config.settings import Settings
 
-from .base_service import BaseService
+from ..base.base_service import BaseService
 
 
 class SharePointFolderService(BaseService):
