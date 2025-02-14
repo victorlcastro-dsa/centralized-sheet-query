@@ -17,6 +17,9 @@ class Settings:
         sharepoint_site (str): SharePoint site name.
         sharepoint_path (str): Path to the SharePoint folder.
         columns (list): List of column names for the spreadsheet.
+        output_filename (str): Name of the output file.
+        origin_column_name (str): Name of the origin column.
+        log_level (str): Logging level.
     """
 
     def __init__(self):
@@ -30,3 +33,6 @@ class Settings:
         self.sharepoint_site = os.getenv("sharepoint_site")
         self.sharepoint_path = os.getenv("sharepoint_path")
         self.columns = os.getenv("columns").split(",")
+        self.output_filename = os.getenv("output_filename", "consolidated.xlsx")
+        self.origin_column_name = os.getenv("origin_column_name", "Origem")
+        self.log_level = os.getenv("log_level", "INFO")

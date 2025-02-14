@@ -71,7 +71,7 @@ class ServiceFactory:
         """
         if not self.spreadsheet_service:
             self.spreadsheet_service = SpreadsheetService(
-                self.settings.columns, self.logger
+                self.settings.columns, self.settings.origin_column_name, self.logger
             )
         return self.spreadsheet_service
 

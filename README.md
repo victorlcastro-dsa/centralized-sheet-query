@@ -7,6 +7,8 @@
 # TODO: Implement a strategy to process different file types
 # TODO: Implement a strategy to process different file formats
 # TODO: Create an executable script to run the application
+# TODO: Implement automated tests for the application
+# TODO: Implement a strategy to handle errors and exceptions
 ```
 
 ## Overview
@@ -80,14 +82,17 @@ pip install -r requirements.txt
 
 Create a `.env` file in the root directory with the following content:
 
-```
-client_id = "your_client_id"
-client_secret = "your_client_secret"
-tenant_id = "your_tenant_id"
-sharepoint_host = "your_sharepoint_host"
-sharepoint_site = "your_sharepoint_site"
-sharepoint_path = "your_sharepoint_path"
-columns = "Column1,Column2,Column3"
+```plaintext
+client_id = "<your_client_id>"
+client_secret = "<your_client_secret>"
+tenant_id = "<your_tenant_id>"
+sharepoint_host = "<your_sharepoint_host>"
+sharepoint_site = "<your_sharepoint_site>"
+sharepoint_path = "<your_sharepoint_path>"
+columns = "<your_columns>"
+output_filename = "<your_output_filename>.xlsx"
+origin_column_name = "<your_origin_column_name>"
+log_level = "<your_log_level>"
 ```
 
 ## Usage

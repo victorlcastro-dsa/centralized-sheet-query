@@ -75,4 +75,4 @@ class App:
             tasks = [file_processor.process_file(file) for file in files]
             await asyncio.gather(*tasks)
 
-            self.spreadsheet_service.save("centralizadora.xlsx")
+            self.spreadsheet_service.save(self.factory.settings.output_filename)
