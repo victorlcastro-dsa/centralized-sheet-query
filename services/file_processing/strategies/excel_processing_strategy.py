@@ -10,9 +10,11 @@ logger = LoggerConfig.get_logger(__name__)
 
 class ExcelProcessingStrategy(BaseFileProcessingStrategy):
     def __init__(self):
+        """Initialize the Excel processing strategy."""
         super().__init__(".xlsx")
 
     async def process_content(self, file_content, file, ws):
+        """Process the content of an Excel file."""
         df = pd.read_excel(file_content)
         if not df.empty:
             for row in df.itertuples(index=False, name=None):

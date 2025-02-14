@@ -31,4 +31,5 @@ class BaseFileProcessingStrategy(ABC):
 
     @abstractmethod
     async def process_content(self, file_content, file, ws):
+        """Process the content of the file."""
         pass

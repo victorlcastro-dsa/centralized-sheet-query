@@ -10,8 +10,10 @@ logger = LoggerConfig.get_logger(__name__)
 
 
 class App:
-    def __init__(self, settings: Settings, logger: LoggerConfig):
-        self.factory = ServiceFactory(settings, logger)
+    def __init__(
+        self, settings: Settings, logger: LoggerConfig, factory: ServiceFactory
+    ):
+        self.factory = factory
         self.auth_service = self.factory.get_auth_service()
         self.sharepoint_service = self.factory.get_sharepoint_service()
         self.spreadsheet_service = self.factory.get_spreadsheet_service()
