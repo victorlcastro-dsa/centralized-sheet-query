@@ -3,14 +3,15 @@ import asyncio
 from aiohttp import ClientSession
 
 from config.logger_config import LoggerConfig
+from config.settings import Settings
 from services.service_factory import ServiceFactory
 
 logger = LoggerConfig.get_logger(__name__)
 
 
 class App:
-    def __init__(self):
-        self.factory = ServiceFactory()
+    def __init__(self, settings: Settings, logger: LoggerConfig):
+        self.factory = ServiceFactory(settings, logger)
         self.auth_service = self.factory.get_auth_service()
         self.sharepoint_service = self.factory.get_sharepoint_service()
         self.spreadsheet_service = self.factory.get_spreadsheet_service()
