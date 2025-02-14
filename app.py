@@ -5,7 +5,7 @@ from aiohttp import ClientSession
 from auth.authentication import AuthenticationService
 from config.logger_config import LoggerConfig
 from config.settings import Settings
-from services.file_processor import process_file
+from services.file_processor import FileProcessor
 from services.sharepoint_service import SharePointFolderService
 from services.spreadsheet_service import SpreadsheetService
 
@@ -47,16 +47,13 @@ class App:
                 for file in files:
                     logger.info(f"Found file: {file['name']}")
 
-            tasks = [
-                process_file(
-                    session,
-                    file,
-                    self.spreadsheet_service.ws,
-                    self.auth_service.get_access_token(),
-                    drive_id,
-                )
-                for file in files
-            ]
+            file_processor = FileProcessor(
+                session,
+                self.spreadsheet_service.ws,
+                self.auth_service.get_access_token(),
+                drive_id,
+            )
+            tasks = [file_processor.process_file(file) for file in files]
             await asyncio.gather(*tasks)
 
             self.spreadsheet_service.save("centralizadora.xlsx")
