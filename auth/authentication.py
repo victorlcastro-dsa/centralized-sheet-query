@@ -16,9 +16,9 @@ class AuthenticationService:
         self.scope = ["https://graph.microsoft.com/.default"]
         self.access_token = None
         self.token_expires_at = 0
-        self.authenticate()
+        self._authenticate()
 
-    def authenticate(self):
+    def _authenticate(self):
         app = msal.ConfidentialClientApplication(
             self.client_id,
             authority=self.authority,
@@ -36,5 +36,5 @@ class AuthenticationService:
     def get_access_token(self):
         if time.time() >= self.token_expires_at:
             logger.info("Access token expired, re-authenticating...")
-            self.authenticate()
+            self._authenticate()
         return self.access_token

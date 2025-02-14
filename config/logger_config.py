@@ -2,8 +2,8 @@ import logging
 
 
 class LoggerConfig:
-    @staticmethod
-    def setup_logging(level=logging.INFO):
+    @classmethod
+    def setup_logging(cls, level=logging.INFO):
         logging.basicConfig(
             level=level,
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
