@@ -1,3 +1,7 @@
+from typing import Optional
+
+from aiohttp import ClientSession
+
 from auth.authentication import AuthenticationService
 from config.logger_config import LoggerConfig
 from config.settings import Settings
@@ -16,13 +20,13 @@ class ServiceFactory:
     Attributes:
         settings (Settings): Application settings.
         logger (LoggerConfig): Logger configuration.
-        auth_service (AuthenticationService): Authentication service instance.
-        sharepoint_service (SharePointFolderService): SharePoint service instance.
-        spreadsheet_service (SpreadsheetService): Spreadsheet service instance.
-        file_processor (FileProcessor): File processor instance.
+        auth_service (Optional[AuthenticationService]): Authentication service instance.
+        sharepoint_service (Optional[SharePointFolderService]): SharePoint service instance.
+        spreadsheet_service (Optional[SpreadsheetService]): Spreadsheet service instance.
+        file_processor (Optional[FileProcessor]): File processor instance.
     """
 
-    def __init__(self, settings: Settings, logger: LoggerConfig):
+    def __init__(self, settings: Settings, logger: LoggerConfig) -> None:
         """
         Initializes the ServiceFactory class with settings and logger.
 
@@ -30,14 +34,14 @@ class ServiceFactory:
             settings (Settings): Application settings.
             logger (LoggerConfig): Logger configuration.
         """
-        self.settings = settings
-        self.logger = logger
-        self.auth_service = None
-        self.sharepoint_service = None
-        self.spreadsheet_service = None
-        self.file_processor = None
+        self.settings: Settings = settings
+        self.logger: LoggerConfig = logger
+        self.auth_service: Optional[AuthenticationService] = None
+        self.sharepoint_service: Optional[SharePointFolderService] = None
+        self.spreadsheet_service: Optional[SpreadsheetService] = None
+        self.file_processor: Optional[FileProcessor] = None
 
-    def get_auth_service(self):
+    def get_auth_service(self) -> AuthenticationService:
         """
         Returns the authentication service instance. Creates it if it doesn't exist.
 
@@ -48,7 +52,7 @@ class ServiceFactory:
             self.auth_service = AuthenticationService(self.settings, self.logger)
         return self.auth_service
 
-    def get_sharepoint_service(self):
+    def get_sharepoint_service(self) -> SharePointFolderService:
         """
         Returns the SharePoint service instance. Creates it if it doesn't exist.
 
@@ -62,7 +66,7 @@ class ServiceFactory:
             )
         return self.sharepoint_service
 
-    def get_spreadsheet_service(self):
+    def get_spreadsheet_service(self) -> SpreadsheetService:
         """
         Returns the spreadsheet service instance. Creates it if it doesn't exist.
 
@@ -75,12 +79,12 @@ class ServiceFactory:
             )
         return self.spreadsheet_service
 
-    async def get_file_processor(self, session):
+    async def get_file_processor(self, session: ClientSession) -> FileProcessor:
         """
         Returns the file processor instance. Creates it if it doesn't exist.
 
         Args:
-            session (aiohttp.ClientSession): HTTP client session.
+            session (ClientSession): HTTP client session.
 
         Returns:
             FileProcessor: File processor instance.

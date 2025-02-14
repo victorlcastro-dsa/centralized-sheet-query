@@ -1,4 +1,5 @@
 import logging
+from typing import Type
 
 
 class LoggerConfig:
@@ -11,7 +12,7 @@ class LoggerConfig:
     """
 
     @classmethod
-    def setup_logging(cls, level=logging.INFO):
+    def setup_logging(cls: Type["LoggerConfig"], level: int = logging.INFO) -> None:
         """
         Sets up the logging configuration with the specified log level.
 
@@ -25,7 +26,7 @@ class LoggerConfig:
         )
 
     @staticmethod
-    def get_logger(name):
+    def get_logger(name: str) -> logging.Logger:
         """
         Returns a logger instance with the specified name.
 

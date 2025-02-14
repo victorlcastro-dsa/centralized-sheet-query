@@ -1,4 +1,8 @@
+from io import BytesIO
+from typing import Any, Dict
+
 import pandas as pd
+from openpyxl.worksheet.worksheet import Worksheet
 
 from config.logger_config import LoggerConfig
 from services.file_processing.strategies.base_file_processing_strategy import (
@@ -16,20 +20,22 @@ class ExcelProcessingStrategy(BaseFileProcessingStrategy):
         process_content(file_content, file, ws): Processes the content of an Excel file.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes the ExcelProcessingStrategy with the .xlsx file extension.
         """
         super().__init__(".xlsx")
 
-    async def process_content(self, file_content, file, ws):
+    async def process_content(
+        self, file_content: BytesIO, file: Dict[str, Any], ws: Worksheet
+    ) -> None:
         """
         Processes the content of an Excel file.
 
         Args:
             file_content (BytesIO): The content of the file.
             file (dict): The file metadata.
-            ws (openpyxl.worksheet.worksheet.Worksheet): The worksheet to append data to.
+            ws (Worksheet): The worksheet to append data to.
         """
         df = pd.read_excel(file_content)
         if not df.empty:

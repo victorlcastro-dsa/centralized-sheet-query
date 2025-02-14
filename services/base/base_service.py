@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any, Dict
 
 import aiohttp
 
@@ -15,7 +16,7 @@ class BaseService(ABC):
         access_token (str): Access token for authentication.
     """
 
-    def __init__(self, access_token):
+    def __init__(self, access_token: str) -> None:
         """
         Initializes the BaseService class with an access token.
 
@@ -24,7 +25,7 @@ class BaseService(ABC):
         """
         self.access_token = access_token
 
-    async def make_request(self, method, url):
+    async def make_request(self, method: str, url: str) -> Dict[str, Any]:
         """
         Makes an HTTP request with the specified method and URL.
 
@@ -41,7 +42,7 @@ class BaseService(ABC):
                 return await self.handle_response(response)
 
     @abstractmethod
-    def get_headers(self):
+    def get_headers(self) -> Dict[str, str]:
         """
         Returns the headers for the HTTP request.
 
@@ -51,7 +52,7 @@ class BaseService(ABC):
         pass
 
     @abstractmethod
-    async def handle_response(self, response):
+    async def handle_response(self, response: aiohttp.ClientResponse) -> Dict[str, Any]:
         """
         Handles the response from the HTTP request.
 

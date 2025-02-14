@@ -1,4 +1,5 @@
 import time
+from typing import List
 
 import msal
 
@@ -15,13 +16,13 @@ class AuthenticationService:
         client_secret (str): Client secret.
         tenant_id (str): Tenant ID.
         authority (str): Authority URL for authentication.
-        scope (list): Scope of permissions for the token.
+        scope (List[str]): Scope of permissions for the token.
         access_token (str): Access token.
         token_expires_at (float): Token expiration timestamp.
         logger (Logger): Logger instance.
     """
 
-    def __init__(self, settings: Settings, logger: LoggerConfig):
+    def __init__(self, settings: Settings, logger: LoggerConfig) -> None:
         """
         Initializes the AuthenticationService class with settings and logger.
 
@@ -29,17 +30,17 @@ class AuthenticationService:
             settings (Settings): Application settings.
             logger (LoggerConfig): Logger configuration.
         """
-        self.client_id = settings.client_id
-        self.client_secret = settings.client_secret
-        self.tenant_id = settings.tenant_id
-        self.authority = f"https://login.microsoftonline.com/{self.tenant_id}"
-        self.scope = ["https://graph.microsoft.com/.default"]
-        self.access_token = None
-        self.token_expires_at = 0
+        self.client_id: str = settings.client_id
+        self.client_secret: str = settings.client_secret
+        self.tenant_id: str = settings.tenant_id
+        self.authority: str = f"https://login.microsoftonline.com/{self.tenant_id}"
+        self.scope: List[str] = ["https://graph.microsoft.com/.default"]
+        self.access_token: str = ""
+        self.token_expires_at: float = 0
         self.logger = logger.get_logger(__name__)
         self._authenticate()
 
-    def _authenticate(self):
+    def _authenticate(self) -> None:
         """
         Authenticates the client and obtains an access token.
         """
@@ -57,7 +58,7 @@ class AuthenticationService:
             self.logger.error("Error obtaining access token")
             exit()
 
-    def get_access_token(self):
+    def get_access_token(self) -> str:
         """
         Returns the access token. Re-authenticates if the token has expired.
 

@@ -1,4 +1,7 @@
+from typing import Any, Dict, Optional
 from urllib.parse import quote
+
+import aiohttp
 
 from config.logger_config import LoggerConfig
 from config.settings import Settings
@@ -16,7 +19,9 @@ class SharePointFolderService(BaseService):
         logger (Logger): Logger instance.
     """
 
-    def __init__(self, access_token, settings: Settings, logger: LoggerConfig):
+    def __init__(
+        self, access_token: str, settings: Settings, logger: LoggerConfig
+    ) -> None:
         """
         Initializes the SharePointFolderService with access token, settings, and logger.
 
@@ -26,11 +31,11 @@ class SharePointFolderService(BaseService):
             logger (LoggerConfig): Logger configuration.
         """
         super().__init__(access_token)
-        self.sharepoint_host = settings.sharepoint_host
-        self.sharepoint_site = settings.sharepoint_site
+        self.sharepoint_host: str = settings.sharepoint_host
+        self.sharepoint_site: str = settings.sharepoint_site
         self.logger = logger.get_logger(__name__)
 
-    def get_headers(self):
+    def get_headers(self) -> Dict[str, str]:
         """
         Returns the headers for the HTTP request.
 
@@ -42,7 +47,9 @@ class SharePointFolderService(BaseService):
             "Accept": "application/json",
         }
 
-    async def handle_response(self, response):
+    async def handle_response(
+        self, response: aiohttp.ClientResponse
+    ) -> Optional[Dict[str, Any]]:
         """
         Handles the response from the HTTP request.
 
@@ -58,7 +65,7 @@ class SharePointFolderService(BaseService):
             self.logger.error(f"Error making request: {response.status}")
             return None
 
-    async def get_site_id(self):
+    async def get_site_id(self) -> Optional[str]:
         """
         Fetches the SharePoint site ID.
 
@@ -69,7 +76,7 @@ class SharePointFolderService(BaseService):
         site_data = await self.make_request("GET", url)
         return site_data["id"] if site_data else None
 
-    async def get_drive_id(self, site_id):
+    async def get_drive_id(self, site_id: str) -> Optional[str]:
         """
         Fetches the drive ID for the specified site ID.
 
@@ -88,7 +95,9 @@ class SharePointFolderService(BaseService):
             self.logger.error("Drive 'Documentos' not found")
         return None
 
-    async def get_files(self, drive_id, sharepoint_path):
+    async def get_files(
+        self, drive_id: str, sharepoint_path: str
+    ) -> Optional[Dict[str, Any]]:
         """
         Fetches the files from the specified SharePoint path.
 

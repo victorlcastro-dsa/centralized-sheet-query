@@ -1,5 +1,9 @@
 from abc import ABC, abstractmethod
 from io import BytesIO
+from typing import Any, Dict
+
+import aiohttp
+from openpyxl.worksheet.worksheet import Worksheet
 
 from config.logger_config import LoggerConfig
 
@@ -14,7 +18,7 @@ class BaseFileProcessingStrategy(ABC):
         file_extension (str): The file extension that this strategy can process.
     """
 
-    def __init__(self, file_extension):
+    def __init__(self, file_extension: str) -> None:
         """
         Initializes the BaseFileProcessingStrategy with the specified file extension.
 
@@ -23,14 +27,21 @@ class BaseFileProcessingStrategy(ABC):
         """
         self.file_extension = file_extension
 
-    async def process(self, file, session, ws, access_token, drive_id):
+    async def process(
+        self,
+        file: Dict[str, Any],
+        session: aiohttp.ClientSession,
+        ws: Worksheet,
+        access_token: str,
+        drive_id: str,
+    ) -> None:
         """
         Processes the file if it matches the specified file extension.
 
         Args:
             file (dict): The file metadata.
             session (aiohttp.ClientSession): The HTTP client session.
-            ws (openpyxl.worksheet.worksheet.Worksheet): The worksheet to append data to.
+            ws (Worksheet): The worksheet to append data to.
             access_token (str): The access token for authentication.
             drive_id (str): The ID of the drive containing the file.
         """
@@ -53,13 +64,15 @@ class BaseFileProcessingStrategy(ABC):
                     logger.error(f"Response: {await file_response.text()}")
 
     @abstractmethod
-    async def process_content(self, file_content, file, ws):
+    async def process_content(
+        self, file_content: BytesIO, file: Dict[str, Any], ws: Worksheet
+    ) -> None:
         """
         Abstract method to process the content of the file.
 
         Args:
             file_content (BytesIO): The content of the file.
             file (dict): The file metadata.
-            ws (openpyxl.worksheet.worksheet.Worksheet): The worksheet to append data to.
+            ws (Worksheet): The worksheet to append data to.
         """
         pass

@@ -9,7 +9,7 @@ settings = Settings()
 LoggerConfig.setup_logging(level=settings.log_level)
 
 
-async def main():
+async def main() -> None:
     """
     Main entry point of the application. Initializes settings, logger, service factory,
     and the main application class, then runs the application.

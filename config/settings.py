@@ -1,4 +1,5 @@
 import os
+from typing import List
 
 from dotenv import load_dotenv
 
@@ -16,23 +17,23 @@ class Settings:
         sharepoint_host (str): SharePoint host URL.
         sharepoint_site (str): SharePoint site name.
         sharepoint_path (str): Path to the SharePoint folder.
-        columns (list): List of column names for the spreadsheet.
+        columns (List[str]): List of column names for the spreadsheet.
         output_filename (str): Name of the output file.
         origin_column_name (str): Name of the origin column.
         log_level (str): Logging level.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializes the Settings class by loading environment variables.
         """
-        self.client_id = os.getenv("client_id")
-        self.client_secret = os.getenv("client_secret")
-        self.tenant_id = os.getenv("tenant_id")
-        self.sharepoint_host = os.getenv("sharepoint_host")
-        self.sharepoint_site = os.getenv("sharepoint_site")
-        self.sharepoint_path = os.getenv("sharepoint_path")
-        self.columns = os.getenv("columns").split(",")
-        self.output_filename = os.getenv("output_filename", "consolidated.xlsx")
-        self.origin_column_name = os.getenv("origin_column_name", "Origem")
-        self.log_level = os.getenv("log_level", "INFO")
+        self.client_id: str = os.getenv("client_id", "")
+        self.client_secret: str = os.getenv("client_secret", "")
+        self.tenant_id: str = os.getenv("tenant_id", "")
+        self.sharepoint_host: str = os.getenv("sharepoint_host", "")
+        self.sharepoint_site: str = os.getenv("sharepoint_site", "")
+        self.sharepoint_path: str = os.getenv("sharepoint_path", "")
+        self.columns: List[str] = os.getenv("columns", "").split(",")
+        self.output_filename: str = os.getenv("output_filename", "consolidated.xlsx")
+        self.origin_column_name: str = os.getenv("origin_column_name", "Origem")
+        self.log_level: str = os.getenv("log_level", "INFO")

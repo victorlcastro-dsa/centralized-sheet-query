@@ -1,3 +1,8 @@
+from typing import Any, Dict
+
+from aiohttp import ClientSession
+from openpyxl.worksheet.worksheet import Worksheet
+
 from services.file_processing.strategies.file_processing_strategy import (
     FileProcessingStrategy,
 )
@@ -8,22 +13,27 @@ class FileProcessor:
     Class responsible for processing files using a specified strategy.
 
     Attributes:
-        session (aiohttp.ClientSession): The HTTP client session.
-        ws (openpyxl.worksheet.worksheet.Worksheet): The worksheet to append data to.
+        session (ClientSession): The HTTP client session.
+        ws (Worksheet): The worksheet to append data to.
         access_token (str): The access token for authentication.
         drive_id (str): The ID of the drive containing the file.
         strategy (FileProcessingStrategy): The strategy to process the file.
     """
 
     def __init__(
-        self, session, ws, access_token, drive_id, strategy: FileProcessingStrategy
-    ):
+        self,
+        session: ClientSession,
+        ws: Worksheet,
+        access_token: str,
+        drive_id: str,
+        strategy: FileProcessingStrategy,
+    ) -> None:
         """
         Initializes the FileProcessor with the specified parameters.
 
         Args:
-            session (aiohttp.ClientSession): The HTTP client session.
-            ws (openpyxl.worksheet.worksheet.Worksheet): The worksheet to append data to.
+            session (ClientSession): The HTTP client session.
+            ws (Worksheet): The worksheet to append data to.
             access_token (str): The access token for authentication.
             drive_id (str): The ID of the drive containing the file.
             strategy (FileProcessingStrategy): The strategy to process the file.
@@ -34,7 +44,7 @@ class FileProcessor:
         self.drive_id = drive_id
         self.strategy = strategy
 
-    async def process_file(self, file):
+    async def process_file(self, file: Dict[str, Any]) -> None:
         """
         Processes the file using the specified strategy.
 
