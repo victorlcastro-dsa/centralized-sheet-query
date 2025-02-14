@@ -7,7 +7,28 @@ from config.settings import Settings
 
 
 class AuthenticationService:
+    """
+    Authentication service to obtain access tokens from Microsoft Graph API.
+
+    Attributes:
+        client_id (str): Client ID.
+        client_secret (str): Client secret.
+        tenant_id (str): Tenant ID.
+        authority (str): Authority URL for authentication.
+        scope (list): Scope of permissions for the token.
+        access_token (str): Access token.
+        token_expires_at (float): Token expiration timestamp.
+        logger (Logger): Logger instance.
+    """
+
     def __init__(self, settings: Settings, logger: LoggerConfig):
+        """
+        Initializes the AuthenticationService class with settings and logger.
+
+        Args:
+            settings (Settings): Application settings.
+            logger (LoggerConfig): Logger configuration.
+        """
         self.client_id = settings.client_id
         self.client_secret = settings.client_secret
         self.tenant_id = settings.tenant_id
@@ -19,6 +40,9 @@ class AuthenticationService:
         self._authenticate()
 
     def _authenticate(self):
+        """
+        Authenticates the client and obtains an access token.
+        """
         app = msal.ConfidentialClientApplication(
             self.client_id,
             authority=self.authority,
@@ -34,6 +58,12 @@ class AuthenticationService:
             exit()
 
     def get_access_token(self):
+        """
+        Returns the access token. Re-authenticates if the token has expired.
+
+        Returns:
+            str: Access token.
+        """
         if time.time() >= self.token_expires_at:
             self.logger.info("Access token expired, re-authenticating...")
             self._authenticate()

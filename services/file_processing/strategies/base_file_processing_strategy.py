@@ -7,10 +7,33 @@ logger = LoggerConfig.get_logger(__name__)
 
 
 class BaseFileProcessingStrategy(ABC):
+    """
+    Abstract base class for file processing strategies.
+
+    Attributes:
+        file_extension (str): The file extension that this strategy can process.
+    """
+
     def __init__(self, file_extension):
+        """
+        Initializes the BaseFileProcessingStrategy with the specified file extension.
+
+        Args:
+            file_extension (str): The file extension that this strategy can process.
+        """
         self.file_extension = file_extension
 
     async def process(self, file, session, ws, access_token, drive_id):
+        """
+        Processes the file if it matches the specified file extension.
+
+        Args:
+            file (dict): The file metadata.
+            session (aiohttp.ClientSession): The HTTP client session.
+            ws (openpyxl.worksheet.worksheet.Worksheet): The worksheet to append data to.
+            access_token (str): The access token for authentication.
+            drive_id (str): The ID of the drive containing the file.
+        """
         if file["name"].endswith(self.file_extension):
             file_id = file["id"]
             logger.info(f"Processing file: {file['name']}")
@@ -31,5 +54,12 @@ class BaseFileProcessingStrategy(ABC):
 
     @abstractmethod
     async def process_content(self, file_content, file, ws):
-        """Process the content of the file."""
+        """
+        Abstract method to process the content of the file.
+
+        Args:
+            file_content (BytesIO): The content of the file.
+            file (dict): The file metadata.
+            ws (openpyxl.worksheet.worksheet.Worksheet): The worksheet to append data to.
+        """
         pass

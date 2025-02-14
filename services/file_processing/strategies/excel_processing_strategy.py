@@ -9,12 +9,28 @@ logger = LoggerConfig.get_logger(__name__)
 
 
 class ExcelProcessingStrategy(BaseFileProcessingStrategy):
+    """
+    Strategy for processing Excel files.
+
+    Methods:
+        process_content(file_content, file, ws): Processes the content of an Excel file.
+    """
+
     def __init__(self):
-        """Initialize the Excel processing strategy."""
+        """
+        Initializes the ExcelProcessingStrategy with the .xlsx file extension.
+        """
         super().__init__(".xlsx")
 
     async def process_content(self, file_content, file, ws):
-        """Process the content of an Excel file."""
+        """
+        Processes the content of an Excel file.
+
+        Args:
+            file_content (BytesIO): The content of the file.
+            file (dict): The file metadata.
+            ws (openpyxl.worksheet.worksheet.Worksheet): The worksheet to append data to.
+        """
         df = pd.read_excel(file_content)
         if not df.empty:
             for row in df.itertuples(index=False, name=None):

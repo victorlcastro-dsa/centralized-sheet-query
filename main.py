@@ -9,6 +9,10 @@ LoggerConfig.setup_logging()
 
 
 async def main():
+    """
+    Main entry point of the application. Initializes settings, logger, service factory,
+    and the main application class, then runs the application.
+    """
     settings = Settings()
     logger = LoggerConfig()
     factory = ServiceFactory(settings, logger)
